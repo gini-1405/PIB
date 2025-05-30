@@ -23,12 +23,21 @@ app.post("/api/create-checkout-session", async (req, res) => {
     quantity: product.qnty,
   }));
 
+  // const session = await stripe.checkout.sessions.create({
+  //   payment_method_types: ["card"],
+  //   line_items: lineItems,
+  //   mode: "payment",
+  //   success_url: "http://localhost:3000/sucess",
+  //   cancel_url: "http://localhost:3000/cancel",
+  // });
+  const YOUR_DOMAIN = process.env.FRONTEND_URL || "http://localhost:3000"; // set this in your env
+
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: lineItems,
     mode: "payment",
-    success_url: "http://localhost:3000/sucess",
-    cancel_url: "http://localhost:3000/cancel",
+    success_url: `${YOUR_DOMAIN}/success`,
+    cancel_url: `${YOUR_DOMAIN}/cancel`,
   });
 
   res.json({ id: session.id });
