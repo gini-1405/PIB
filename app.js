@@ -6,15 +6,13 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 app.use(
   cors({
-    origin: "https://paymentgatewayintegration.vercel.app/",
+    origin: "https://paymentgatewayintegration.vercel.app",
     methods: ["GET", "POST"],
     credentials: true,
   })
 );
 
 app.use(express.json());
-app.use(cors());
-
 // checkout api
 app.post("/api/create-checkout-session", async (req, res) => {
   const { products } = req.body;
